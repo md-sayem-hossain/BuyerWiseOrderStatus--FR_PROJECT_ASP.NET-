@@ -1,0 +1,123 @@
+﻿@using BuyerWiseOrderStatus.Models
+@{
+    ViewBag.Title = "Get Delivery Data";
+}
+<link href="~/Content/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/Content/buttons.dataTables.min.css" rel="stylesheet" />
+<style>
+    .datef {
+        background: url('../../Image/calendar-icon.png') no-repeat;
+        background-position: right;
+        background-color: white !important;
+        background-size: 20px;
+    }
+
+    .container .jumbotron, .container-fluid .jumbotron {
+        padding-right: 50px;
+        padding-left: 30px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+</style>
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+<h3 style=" font-weight: 600; color: #af9f9f; border-bottom: 1px solid #dfdede; text-align: center;">Breakdown</h3>
+<div class="jumbotron" style="margin-top:30px;">
+    @using (Html.BeginForm("GetDeliveryData", "Home", FormMethod.Post))
+    {
+        <div class="mygrp" style="display: flex; align-items:center;">
+            <div class="form-group" style="width: 20%; margin-right: 20px;">
+                <label for="fromDate">Date From</label>
+                <input type="text" name="fromDate" id="fromDate" value="@ViewBag.fromDate" class="datef form-control" placeholder="dd-mm-yyyy" readonly>
+            </div>
+            <div class="form-group" style="width: 20%; margin-right: 20px;">
+                <label for="toDate">Date To</label>
+                <input type="text" name="toDate" id="toDate" value="@ViewBag.toDate" class="datef form-control" placeholder="dd-mm-yyyy" readonly>
+            </div>
+            <button type="submit" class="btn btn-primary" style="margin-top:5px;">Submit</button>
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div> <h4 id="heading" style="text-align: left; color: red; font-weight: 600;">@ViewBag.dateInfo</h4> </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table id="example" class="display table table-hover table-bordered" style="width:100%; font-size: 12px;">
+            <thead>
+                <tr>
+                    <th>SL</th>
+                    <th>Production Type</th>
+                    <th>Customer</th>
+                    <th>PF No</th>
+                    <th>BPO</th>
+                    <th>Delivery Date</th>
+                    <th>Status</th>
+                    <th>Order QTY</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    if (Model != null)
+                    {
+                        var index = 1;
+                        foreach (var item in Model)
+                        {
+                                <tr>
+                                    <td>@index</td>
+                                    <td>@item.UD_FIELD_VALUE</td>
+                                    <td>@item.CUSTOMER_NAME</td>
+                                    <td>@item.PF_NO</td>
+                                    <td>@item.BPO</td>
+                                    @*<td>@item.ORDER_NAME</td>*@
+                                    <td>@item.DEL_DATE</td>
+                                    <td>@item.Status</td>
+                                    <td style="text-align: right;">@item.ORD_QTY</td>
+                                </tr>
+                            index++;
+                        }
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script src="~/Scripts/jquery.min.js"></script>
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/dataTables.buttons.min.js"></script>
+<script src="~/Scripts/jszip.min.js"></script>
+<script src="~/Scripts/pdfmake.min.js"></script>
+<script src="~/Scripts/vfs_fonts.js"></script>
+<script src="~/Scripts/buttons.html5.min.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
+<script>
+    var fileName = document.getElementById("heading").innerHTML;
+    $(document).ready(function () {
+        $('#example').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
+                { extend: 'excelHtml5', title: '', filename: fileName }
+            ],
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('.datef').datepicker({
+            dateFormat: 'dd-M-yy',
+            showStatus: true,
+            showWeeks: true,
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            highlightWeek: true,
+            autoclose: true,
+        });
+    });
+</script>
+
+
+

@@ -1,0 +1,397 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="FRPJLModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="_CUSTOMERS">
+          <Key>
+            <PropertyRef Name="CUSTOMER_ID" />
+          </Key>
+          <Property Name="CUSTOMER_ID" Type="int" Nullable="false" />
+          <Property Name="CUSTOMER_NAME" Type="nvarchar" MaxLength="240" Nullable="false" />
+          <Property Name="CUSTOMER_DESC" Type="nvarchar" MaxLength="240" Nullable="false" />
+          <Property Name="LOCATION_ID" Type="int" Nullable="false" />
+          <Property Name="STRIP_COLOUR" Type="int" Nullable="false" />
+          <Property Name="LATE_ALLOWED" Type="tinyint" Nullable="false" />
+          <Property Name="PRIORITY" Type="tinyint" Nullable="false" />
+          <Property Name="PLAN_GROUP_ID" Type="int" Nullable="false" />
+          <Property Name="DIST_CENTRE_DAYS" Type="tinyint" Nullable="false" />
+          <Property Name="CHANGE_ID" Type="int" Nullable="false" />
+          <Property Name="CUSTOMER_GROUP" Type="int" Nullable="false" />
+          <Property Name="UPLIFT_PERCENT" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="_ORDER_DELIVERIES">
+          <Key>
+            <PropertyRef Name="ORDER_ID" />
+            <PropertyRef Name="DEL_DATE" />
+            <PropertyRef Name="DEL_ID" />
+          </Key>
+          <Property Name="ORDER_ID" Type="int" Nullable="false" />
+          <Property Name="DEL_DATE" Type="smalldatetime" Nullable="false" />
+          <Property Name="DEL_ID" Type="int" Nullable="false" />
+          <Property Name="ORIG_DEL_DATE" Type="smalldatetime" Nullable="false" />
+          <Property Name="DEL_QTY" Type="int" Nullable="false" />
+          <Property Name="DEL_REF" Type="nvarchar" MaxLength="25" Nullable="false" />
+          <Property Name="EXTERNAL_ID" Type="int" Nullable="false" />
+          <Property Name="START_DATE" Type="int" Nullable="false" />
+          <Property Name="END_DATE" Type="int" Nullable="false" />
+          <Property Name="TRANS_METHOD_ID" Type="int" Nullable="false" />
+          <Property Name="EXTN_DEL_DATE" Type="smalldatetime" Nullable="false" />
+          <Property Name="EXTN_DEL_NOTE" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="_ORDER_USER_DEFINED_VALUES">
+          <Key>
+            <PropertyRef Name="ORDER_ID" />
+            <PropertyRef Name="UD_FIELD_ID" />
+          </Key>
+          <Property Name="ORDER_ID" Type="int" Nullable="false" />
+          <Property Name="UD_FIELD_ID" Type="int" Nullable="false" />
+          <Property Name="UD_FIELD_VALUE" Type="nvarchar" MaxLength="240" Nullable="false" />
+        </EntityType>
+        <EntityType Name="_ORDERS">
+          <Key>
+            <PropertyRef Name="ORDER_ID" />
+          </Key>
+          <Property Name="ORDER_ID" Type="int" Nullable="false" />
+          <Property Name="ORDER_NAME" Type="nvarchar" MaxLength="247" Nullable="false" />
+          <Property Name="ORIGINAL_NAME" Type="nvarchar" MaxLength="240" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="nvarchar" MaxLength="240" Nullable="false" />
+          <Property Name="ORDER_SET" Type="int" Nullable="false" />
+          <Property Name="CREATED_DATE" Type="smalldatetime" Nullable="false" />
+          <Property Name="PRODUCT_ID" Type="int" Nullable="false" />
+          <Property Name="CUSTOMER_ID" Type="int" Nullable="false" />
+          <Property Name="TIMETABLE_ID" Type="int" Nullable="false" />
+          <Property Name="STATUS" Type="nvarchar" MaxLength="1" Nullable="false" />
+          <Property Name="RGB_COLOUR" Type="int" Nullable="false" />
+          <Property Name="EFFICIENCY" Type="tinyint" Nullable="false" />
+          <Property Name="WIDTH" Type="smallint" Nullable="false" />
+          <Property Name="QTY_DELIVERED" Type="int" Nullable="false" />
+          <Property Name="FLAGS_4" Type="int" Nullable="false" />
+          <Property Name="MFG_TIME" Type="smallint" Nullable="false" />
+          <Property Name="WH_TIME" Type="smallint" Nullable="false" />
+          <Property Name="SELL_PRICE_X1000" Type="int" Nullable="false" />
+          <Property Name="SELL_COST_X1000" Type="int" Nullable="false" />
+          <Property Name="TRANS_METHOD_ID" Type="int" Nullable="false" />
+          <Property Name="SOURCE_LOCATION_ID" Type="int" Nullable="false" />
+          <Property Name="SALES_YEAR" Type="smallint" Nullable="false" />
+          <Property Name="SALES_SEASON" Type="tinyint" Nullable="false" />
+          <Property Name="PROVIDER_LOCATION_ID" Type="int" Nullable="false" />
+          <Property Name="LAST_UPDATED" Type="smalldatetime" Nullable="false" />
+          <Property Name="PRIORITY" Type="int" Nullable="false" />
+          <Property Name="ROUTE_ID" Type="int" Nullable="false" />
+          <Property Name="PRIOR_ORDER_ID" Type="int" Nullable="false" />
+          <Property Name="NEXT_ORDER_ID" Type="int" Nullable="false" />
+          <Property Name="EVENT_BASE_DATE" Type="int" Nullable="false" />
+          <Property Name="AUTO_PLAN_GROUP" Type="int" Nullable="false" />
+          <Property Name="AUTO_PLAN_BASE_DATE" Type="int" Nullable="false" />
+          <Property Name="OVERRIDE_PROPERTY" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="LAST_IN_CUST" Type="int" Nullable="false" />
+          <Property Name="DIST_FROM_GROUP" Type="int" Nullable="false" />
+          <Property Name="DELIVERY_LOCATION" Type="int" Nullable="false" />
+          <Property Name="BATCH_FACTOR" Type="int" Nullable="false" />
+          <Property Name="FLOW_ID" Type="int" Nullable="false" />
+          <Property Name="SCHEDULE_OFFSET" Type="int" Nullable="false" />
+          <Property Name="CHANGE_ID" Type="int" Nullable="false" />
+          <Property Name="CHANGE_DATE" Type="int" Nullable="false" />
+          <Property Name="TRANSPORT_OVERRIDE" Type="int" Nullable="false" />
+          <Property Name="STOCK_OUT_DATE" Type="int" Nullable="false" />
+          <Property Name="HOST_GROUP_ID" Type="int" Nullable="false" />
+          <Property Name="INHERIT_FROM" Type="int" Nullable="false" />
+          <Property Name="RECEIVED_DATE" Type="smalldatetime" Nullable="false" />
+          <Property Name="PROCESS_WITH" Type="int" Nullable="false" />
+          <Property Name="CONTRACT_QTY" Type="int" Nullable="false" />
+          <Property Name="USER_STATUS" Type="int" Nullable="false" />
+          <Property Name="PO_ID" Type="int" Nullable="false" />
+          <Property Name="PO_LINE_ID" Type="int" Nullable="false" />
+          <Property Name="COLLAB_REMOTE_ID" Type="int" Nullable="false" />
+          <Property Name="HOST_ORDER_ID" Type="int" Nullable="false" />
+          <Property Name="ORDER_GROUPING_ID" Type="int" Nullable="false" />
+          <Property Name="VENDOR_DATE" Type="int" Nullable="false" />
+          <Property Name="APEX_ORDER_ITEM_ID" Type="int" Nullable="false" />
+          <Property Name="ARCHIVED_DATE" Type="smalldatetime" Nullable="false" />
+          <Property Name="RESERVATION_ID" Type="int" Nullable="false" />
+          <Property Name="COLLAB_CHANGE_ID" Type="int" Nullable="false" />
+          <Property Name="LAST_COLLAB_SITE" Type="int" Nullable="false" />
+          <Property Name="COLLAB_COMP_CHANGE" Type="int" Nullable="false" />
+          <Property Name="COMPLETE_DATE" Type="smalldatetime" Nullable="false" />
+          <Property Name="OVERRIDE_CUSTOMER_PROF" Type="tinyint" Nullable="false" />
+          <Property Name="MAKE_COST_X1000" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="FRPJLModelStoreContainer">
+          <EntitySet Name="_CUSTOMERS" EntityType="Self._CUSTOMERS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_ORDER_DELIVERIES" EntityType="Self._ORDER_DELIVERIES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_ORDER_USER_DEFINED_VALUES" EntityType="Self._ORDER_USER_DEFINED_VALUES" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="_ORDERS" EntityType="Self._ORDERS" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FRPJLModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CUSTOMERS">
+          <Key>
+            <PropertyRef Name="CUSTOMER_ID" />
+          </Key>
+          <Property Name="CUSTOMER_ID" Type="Int32" Nullable="false" />
+          <Property Name="CUSTOMER_NAME" Type="String" MaxLength="240" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CUSTOMER_DESC" Type="String" MaxLength="240" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LOCATION_ID" Type="Int32" Nullable="false" />
+          <Property Name="STRIP_COLOUR" Type="Int32" Nullable="false" />
+          <Property Name="LATE_ALLOWED" Type="Byte" Nullable="false" />
+          <Property Name="PRIORITY" Type="Byte" Nullable="false" />
+          <Property Name="PLAN_GROUP_ID" Type="Int32" Nullable="false" />
+          <Property Name="DIST_CENTRE_DAYS" Type="Byte" Nullable="false" />
+          <Property Name="CHANGE_ID" Type="Int32" Nullable="false" />
+          <Property Name="CUSTOMER_GROUP" Type="Int32" Nullable="false" />
+          <Property Name="UPLIFT_PERCENT" Type="Byte" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ORDER_DELIVERIES">
+          <Key>
+            <PropertyRef Name="ORDER_ID" />
+            <PropertyRef Name="DEL_DATE" />
+            <PropertyRef Name="DEL_ID" />
+          </Key>
+          <Property Name="ORDER_ID" Type="Int32" Nullable="false" />
+          <Property Name="DEL_DATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DEL_ID" Type="Int32" Nullable="false" />
+          <Property Name="ORIG_DEL_DATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DEL_QTY" Type="Int32" Nullable="false" />
+          <Property Name="DEL_REF" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="EXTERNAL_ID" Type="Int32" Nullable="false" />
+          <Property Name="START_DATE" Type="Int32" Nullable="false" />
+          <Property Name="END_DATE" Type="Int32" Nullable="false" />
+          <Property Name="TRANS_METHOD_ID" Type="Int32" Nullable="false" />
+          <Property Name="EXTN_DEL_DATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EXTN_DEL_NOTE" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ORDER_USER_DEFINED_VALUES">
+          <Key>
+            <PropertyRef Name="ORDER_ID" />
+            <PropertyRef Name="UD_FIELD_ID" />
+          </Key>
+          <Property Name="ORDER_ID" Type="Int32" Nullable="false" />
+          <Property Name="UD_FIELD_ID" Type="Int32" Nullable="false" />
+          <Property Name="UD_FIELD_VALUE" Type="String" MaxLength="240" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ORDERS">
+          <Key>
+            <PropertyRef Name="ORDER_ID" />
+          </Key>
+          <Property Name="ORDER_ID" Type="Int32" Nullable="false" />
+          <Property Name="ORDER_NAME" Type="String" MaxLength="247" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ORIGINAL_NAME" Type="String" MaxLength="240" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="240" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ORDER_SET" Type="Int32" Nullable="false" />
+          <Property Name="CREATED_DATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PRODUCT_ID" Type="Int32" Nullable="false" />
+          <Property Name="CUSTOMER_ID" Type="Int32" Nullable="false" />
+          <Property Name="TIMETABLE_ID" Type="Int32" Nullable="false" />
+          <Property Name="STATUS" Type="String" MaxLength="1" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RGB_COLOUR" Type="Int32" Nullable="false" />
+          <Property Name="EFFICIENCY" Type="Byte" Nullable="false" />
+          <Property Name="WIDTH" Type="Int16" Nullable="false" />
+          <Property Name="QTY_DELIVERED" Type="Int32" Nullable="false" />
+          <Property Name="FLAGS_4" Type="Int32" Nullable="false" />
+          <Property Name="MFG_TIME" Type="Int16" Nullable="false" />
+          <Property Name="WH_TIME" Type="Int16" Nullable="false" />
+          <Property Name="SELL_PRICE_X1000" Type="Int32" Nullable="false" />
+          <Property Name="SELL_COST_X1000" Type="Int32" Nullable="false" />
+          <Property Name="TRANS_METHOD_ID" Type="Int32" Nullable="false" />
+          <Property Name="SOURCE_LOCATION_ID" Type="Int32" Nullable="false" />
+          <Property Name="SALES_YEAR" Type="Int16" Nullable="false" />
+          <Property Name="SALES_SEASON" Type="Byte" Nullable="false" />
+          <Property Name="PROVIDER_LOCATION_ID" Type="Int32" Nullable="false" />
+          <Property Name="LAST_UPDATED" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PRIORITY" Type="Int32" Nullable="false" />
+          <Property Name="ROUTE_ID" Type="Int32" Nullable="false" />
+          <Property Name="PRIOR_ORDER_ID" Type="Int32" Nullable="false" />
+          <Property Name="NEXT_ORDER_ID" Type="Int32" Nullable="false" />
+          <Property Name="EVENT_BASE_DATE" Type="Int32" Nullable="false" />
+          <Property Name="AUTO_PLAN_GROUP" Type="Int32" Nullable="false" />
+          <Property Name="AUTO_PLAN_BASE_DATE" Type="Int32" Nullable="false" />
+          <Property Name="OVERRIDE_PROPERTY" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LAST_IN_CUST" Type="Int32" Nullable="false" />
+          <Property Name="DIST_FROM_GROUP" Type="Int32" Nullable="false" />
+          <Property Name="DELIVERY_LOCATION" Type="Int32" Nullable="false" />
+          <Property Name="BATCH_FACTOR" Type="Int32" Nullable="false" />
+          <Property Name="FLOW_ID" Type="Int32" Nullable="false" />
+          <Property Name="SCHEDULE_OFFSET" Type="Int32" Nullable="false" />
+          <Property Name="CHANGE_ID" Type="Int32" Nullable="false" />
+          <Property Name="CHANGE_DATE" Type="Int32" Nullable="false" />
+          <Property Name="TRANSPORT_OVERRIDE" Type="Int32" Nullable="false" />
+          <Property Name="STOCK_OUT_DATE" Type="Int32" Nullable="false" />
+          <Property Name="HOST_GROUP_ID" Type="Int32" Nullable="false" />
+          <Property Name="INHERIT_FROM" Type="Int32" Nullable="false" />
+          <Property Name="RECEIVED_DATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="PROCESS_WITH" Type="Int32" Nullable="false" />
+          <Property Name="CONTRACT_QTY" Type="Int32" Nullable="false" />
+          <Property Name="USER_STATUS" Type="Int32" Nullable="false" />
+          <Property Name="PO_ID" Type="Int32" Nullable="false" />
+          <Property Name="PO_LINE_ID" Type="Int32" Nullable="false" />
+          <Property Name="COLLAB_REMOTE_ID" Type="Int32" Nullable="false" />
+          <Property Name="HOST_ORDER_ID" Type="Int32" Nullable="false" />
+          <Property Name="ORDER_GROUPING_ID" Type="Int32" Nullable="false" />
+          <Property Name="VENDOR_DATE" Type="Int32" Nullable="false" />
+          <Property Name="APEX_ORDER_ITEM_ID" Type="Int32" Nullable="false" />
+          <Property Name="ARCHIVED_DATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="RESERVATION_ID" Type="Int32" Nullable="false" />
+          <Property Name="COLLAB_CHANGE_ID" Type="Int32" Nullable="false" />
+          <Property Name="LAST_COLLAB_SITE" Type="Int32" Nullable="false" />
+          <Property Name="COLLAB_COMP_CHANGE" Type="Int32" Nullable="false" />
+          <Property Name="COMPLETE_DATE" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="OVERRIDE_CUSTOMER_PROF" Type="Byte" Nullable="false" />
+          <Property Name="MAKE_COST_X1000" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="FR_PJLEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CUSTOMERS" EntityType="FRPJLModel.CUSTOMERS" />
+          <EntitySet Name="ORDER_DELIVERIES" EntityType="FRPJLModel.ORDER_DELIVERIES" />
+          <EntitySet Name="ORDER_USER_DEFINED_VALUES" EntityType="FRPJLModel.ORDER_USER_DEFINED_VALUES" />
+          <EntitySet Name="ORDERS" EntityType="FRPJLModel.ORDERS" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FRPJLModelStoreContainer" CdmEntityContainer="FR_PJLEntities">
+          <EntitySetMapping Name="CUSTOMERS">
+            <EntityTypeMapping TypeName="FRPJLModel.CUSTOMERS">
+              <MappingFragment StoreEntitySet="_CUSTOMERS">
+                <ScalarProperty Name="CUSTOMER_ID" ColumnName="CUSTOMER_ID" />
+                <ScalarProperty Name="CUSTOMER_NAME" ColumnName="CUSTOMER_NAME" />
+                <ScalarProperty Name="CUSTOMER_DESC" ColumnName="CUSTOMER_DESC" />
+                <ScalarProperty Name="LOCATION_ID" ColumnName="LOCATION_ID" />
+                <ScalarProperty Name="STRIP_COLOUR" ColumnName="STRIP_COLOUR" />
+                <ScalarProperty Name="LATE_ALLOWED" ColumnName="LATE_ALLOWED" />
+                <ScalarProperty Name="PRIORITY" ColumnName="PRIORITY" />
+                <ScalarProperty Name="PLAN_GROUP_ID" ColumnName="PLAN_GROUP_ID" />
+                <ScalarProperty Name="DIST_CENTRE_DAYS" ColumnName="DIST_CENTRE_DAYS" />
+                <ScalarProperty Name="CHANGE_ID" ColumnName="CHANGE_ID" />
+                <ScalarProperty Name="CUSTOMER_GROUP" ColumnName="CUSTOMER_GROUP" />
+                <ScalarProperty Name="UPLIFT_PERCENT" ColumnName="UPLIFT_PERCENT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ORDER_DELIVERIES">
+            <EntityTypeMapping TypeName="FRPJLModel.ORDER_DELIVERIES">
+              <MappingFragment StoreEntitySet="_ORDER_DELIVERIES">
+                <ScalarProperty Name="ORDER_ID" ColumnName="ORDER_ID" />
+                <ScalarProperty Name="DEL_DATE" ColumnName="DEL_DATE" />
+                <ScalarProperty Name="DEL_ID" ColumnName="DEL_ID" />
+                <ScalarProperty Name="ORIG_DEL_DATE" ColumnName="ORIG_DEL_DATE" />
+                <ScalarProperty Name="DEL_QTY" ColumnName="DEL_QTY" />
+                <ScalarProperty Name="DEL_REF" ColumnName="DEL_REF" />
+                <ScalarProperty Name="EXTERNAL_ID" ColumnName="EXTERNAL_ID" />
+                <ScalarProperty Name="START_DATE" ColumnName="START_DATE" />
+                <ScalarProperty Name="END_DATE" ColumnName="END_DATE" />
+                <ScalarProperty Name="TRANS_METHOD_ID" ColumnName="TRANS_METHOD_ID" />
+                <ScalarProperty Name="EXTN_DEL_DATE" ColumnName="EXTN_DEL_DATE" />
+                <ScalarProperty Name="EXTN_DEL_NOTE" ColumnName="EXTN_DEL_NOTE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ORDER_USER_DEFINED_VALUES">
+            <EntityTypeMapping TypeName="FRPJLModel.ORDER_USER_DEFINED_VALUES">
+              <MappingFragment StoreEntitySet="_ORDER_USER_DEFINED_VALUES">
+                <ScalarProperty Name="ORDER_ID" ColumnName="ORDER_ID" />
+                <ScalarProperty Name="UD_FIELD_ID" ColumnName="UD_FIELD_ID" />
+                <ScalarProperty Name="UD_FIELD_VALUE" ColumnName="UD_FIELD_VALUE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ORDERS">
+            <EntityTypeMapping TypeName="FRPJLModel.ORDERS">
+              <MappingFragment StoreEntitySet="_ORDERS">
+                <ScalarProperty Name="ORDER_ID" ColumnName="ORDER_ID" />
+                <ScalarProperty Name="ORDER_NAME" ColumnName="ORDER_NAME" />
+                <ScalarProperty Name="ORIGINAL_NAME" ColumnName="ORIGINAL_NAME" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="ORDER_SET" ColumnName="ORDER_SET" />
+                <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
+                <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
+                <ScalarProperty Name="CUSTOMER_ID" ColumnName="CUSTOMER_ID" />
+                <ScalarProperty Name="TIMETABLE_ID" ColumnName="TIMETABLE_ID" />
+                <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+                <ScalarProperty Name="RGB_COLOUR" ColumnName="RGB_COLOUR" />
+                <ScalarProperty Name="EFFICIENCY" ColumnName="EFFICIENCY" />
+                <ScalarProperty Name="WIDTH" ColumnName="WIDTH" />
+                <ScalarProperty Name="QTY_DELIVERED" ColumnName="QTY_DELIVERED" />
+                <ScalarProperty Name="FLAGS_4" ColumnName="FLAGS_4" />
+                <ScalarProperty Name="MFG_TIME" ColumnName="MFG_TIME" />
+                <ScalarProperty Name="WH_TIME" ColumnName="WH_TIME" />
+                <ScalarProperty Name="SELL_PRICE_X1000" ColumnName="SELL_PRICE_X1000" />
+                <ScalarProperty Name="SELL_COST_X1000" ColumnName="SELL_COST_X1000" />
+                <ScalarProperty Name="TRANS_METHOD_ID" ColumnName="TRANS_METHOD_ID" />
+                <ScalarProperty Name="SOURCE_LOCATION_ID" ColumnName="SOURCE_LOCATION_ID" />
+                <ScalarProperty Name="SALES_YEAR" ColumnName="SALES_YEAR" />
+                <ScalarProperty Name="SALES_SEASON" ColumnName="SALES_SEASON" />
+                <ScalarProperty Name="PROVIDER_LOCATION_ID" ColumnName="PROVIDER_LOCATION_ID" />
+                <ScalarProperty Name="LAST_UPDATED" ColumnName="LAST_UPDATED" />
+                <ScalarProperty Name="PRIORITY" ColumnName="PRIORITY" />
+                <ScalarProperty Name="ROUTE_ID" ColumnName="ROUTE_ID" />
+                <ScalarProperty Name="PRIOR_ORDER_ID" ColumnName="PRIOR_ORDER_ID" />
+                <ScalarProperty Name="NEXT_ORDER_ID" ColumnName="NEXT_ORDER_ID" />
+                <ScalarProperty Name="EVENT_BASE_DATE" ColumnName="EVENT_BASE_DATE" />
+                <ScalarProperty Name="AUTO_PLAN_GROUP" ColumnName="AUTO_PLAN_GROUP" />
+                <ScalarProperty Name="AUTO_PLAN_BASE_DATE" ColumnName="AUTO_PLAN_BASE_DATE" />
+                <ScalarProperty Name="OVERRIDE_PROPERTY" ColumnName="OVERRIDE_PROPERTY" />
+                <ScalarProperty Name="LAST_IN_CUST" ColumnName="LAST_IN_CUST" />
+                <ScalarProperty Name="DIST_FROM_GROUP" ColumnName="DIST_FROM_GROUP" />
+                <ScalarProperty Name="DELIVERY_LOCATION" ColumnName="DELIVERY_LOCATION" />
+                <ScalarProperty Name="BATCH_FACTOR" ColumnName="BATCH_FACTOR" />
+                <ScalarProperty Name="FLOW_ID" ColumnName="FLOW_ID" />
+                <ScalarProperty Name="SCHEDULE_OFFSET" ColumnName="SCHEDULE_OFFSET" />
+                <ScalarProperty Name="CHANGE_ID" ColumnName="CHANGE_ID" />
+                <ScalarProperty Name="CHANGE_DATE" ColumnName="CHANGE_DATE" />
+                <ScalarProperty Name="TRANSPORT_OVERRIDE" ColumnName="TRANSPORT_OVERRIDE" />
+                <ScalarProperty Name="STOCK_OUT_DATE" ColumnName="STOCK_OUT_DATE" />
+                <ScalarProperty Name="HOST_GROUP_ID" ColumnName="HOST_GROUP_ID" />
+                <ScalarProperty Name="INHERIT_FROM" ColumnName="INHERIT_FROM" />
+                <ScalarProperty Name="RECEIVED_DATE" ColumnName="RECEIVED_DATE" />
+                <ScalarProperty Name="PROCESS_WITH" ColumnName="PROCESS_WITH" />
+                <ScalarProperty Name="CONTRACT_QTY" ColumnName="CONTRACT_QTY" />
+                <ScalarProperty Name="USER_STATUS" ColumnName="USER_STATUS" />
+                <ScalarProperty Name="PO_ID" ColumnName="PO_ID" />
+                <ScalarProperty Name="PO_LINE_ID" ColumnName="PO_LINE_ID" />
+                <ScalarProperty Name="COLLAB_REMOTE_ID" ColumnName="COLLAB_REMOTE_ID" />
+                <ScalarProperty Name="HOST_ORDER_ID" ColumnName="HOST_ORDER_ID" />
+                <ScalarProperty Name="ORDER_GROUPING_ID" ColumnName="ORDER_GROUPING_ID" />
+                <ScalarProperty Name="VENDOR_DATE" ColumnName="VENDOR_DATE" />
+                <ScalarProperty Name="APEX_ORDER_ITEM_ID" ColumnName="APEX_ORDER_ITEM_ID" />
+                <ScalarProperty Name="ARCHIVED_DATE" ColumnName="ARCHIVED_DATE" />
+                <ScalarProperty Name="RESERVATION_ID" ColumnName="RESERVATION_ID" />
+                <ScalarProperty Name="COLLAB_CHANGE_ID" ColumnName="COLLAB_CHANGE_ID" />
+                <ScalarProperty Name="LAST_COLLAB_SITE" ColumnName="LAST_COLLAB_SITE" />
+                <ScalarProperty Name="COLLAB_COMP_CHANGE" ColumnName="COLLAB_COMP_CHANGE" />
+                <ScalarProperty Name="COMPLETE_DATE" ColumnName="COMPLETE_DATE" />
+                <ScalarProperty Name="OVERRIDE_CUSTOMER_PROF" ColumnName="OVERRIDE_CUSTOMER_PROF" />
+                <ScalarProperty Name="MAKE_COST_X1000" ColumnName="MAKE_COST_X1000" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

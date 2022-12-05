@@ -1,0 +1,140 @@
+﻿@using BuyerWiseOrderStatus.Models
+@{
+    ViewBag.Title = "Get Delivery Status";
+} 
+<link href="~/Content/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="~/Content/buttons.dataTables.min.css" rel="stylesheet" />
+<style>
+    .datef {
+        background: url('../../Image/calendar-icon.png') no-repeat;
+        background-position: right;
+        background-color: white !important;
+        background-size: 20px;
+    }
+
+    .container .jumbotron, .container-fluid .jumbotron {
+        padding-right: 50px;
+        padding-left: 30px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+</style>
+<link href="~/Content/jquery-ui.css" rel="stylesheet" />
+<h3 style=" font-weight: 600; color: #af9f9f; border-bottom: 1px solid #dfdede; text-align: center;">Summury</h3>
+<div class="jumbotron" style="margin-top:30px;">
+    @using (Html.BeginForm("getDeliverySummary", "Home", FormMethod.Post))
+    {
+        <div class="mygrp" style="display: flex; align-items:center;">
+            <div class="form-group" style="width: 20%; margin-right: 20px;">
+                <label for="fromDate">Date From</label>
+                <input type="text" name="fromDate" id="fromDate" value="@ViewBag.fromDate" class="datef form-control" placeholder="dd-mm-yyyy" readonly>
+            </div>
+            <div class="form-group" style="width: 20%; margin-right: 20px;">
+                <label for="toDate">Date To</label>
+                <input type="text" name="toDate" id="toDate" value="@ViewBag.toDate" class="datef form-control" placeholder="dd-mm-yyyy" readonly>
+            </div>
+            <button type="submit" class="btn btn-primary" style="margin-top:5px;">Submit</button>
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <div> <h4 id="heading" style="text-align: left; color: red; font-weight: 600;">@ViewBag.dateInfo</h4> </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table id="example" class=" table  table-bordered" style="width:100%; font-size: 12px;">
+            <thead>
+                <tr>
+                    <th>SL</th>
+                    <th>Production Type</th>
+                    <th>Customer</th>
+                    <th>Status</th>
+                    <th style="text-align: right;">Order QTY</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    if (Model != null)
+                    {
+                        var index = 1;
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@index</td>
+                                <td>@item.UD_FIELD_VALUE</td>
+                                <td>@item.CUSTOMER_NAME</td>
+                                <td>@item.Status</td>
+                                <td style="text-align: right;">@item.ORD_QTY</td>
+                            </tr>
+                            index++;
+                        }
+                    }
+                }
+            </tbody> 
+            <tfoot>
+            <tr style="background: whitesmoke;">
+                <th colspan="4" style="text-align: right; font-size: 16px; ">Total:</th>
+                <th style="text-align: right; font-size: 16px;"></th>
+            </tr>
+        </tfoot>
+        </table>
+    </div>
+</div>
+
+
+<script src="~/Scripts/jquery.min.js"></script>
+<script src="~/Scripts/jquery.dataTables.min.js"></script>
+<script src="~/Scripts/dataTables.buttons.min.js"></script>
+<script src="~/Scripts/jszip.min.js"></script>
+<script src="~/Scripts/pdfmake.min.js"></script>
+<script src="~/Scripts/vfs_fonts.js"></script>
+<script src="~/Scripts/buttons.html5.min.js"></script>
+<script src="~/Scripts/jquery-ui.js"></script>
+<script>
+    var fileName = document.getElementById("heading").innerHTML;
+     
+    $(document).ready(function () {
+        $('#example').DataTable({
+            paging: false,
+            order: [[2, 'asc']], 
+            "autoWidth": true,
+            "footerCallback": function (row, data, start, end, display) {
+                var api = this.api();
+                nb_cols = api.columns().nodes().length;
+                var j = 4;
+                while (j < nb_cols) {
+                    var pageTotal = api
+                        .column(j, { page: 'current' })
+                        .data()
+                        .reduce(function (a, b) {
+                            return Number(a) + Number(b);
+                        }, 0);
+                    // Update footer
+                    $(api.column(j).footer()).html(pageTotal.toLocaleString('hi-IN')    );
+                    j++;
+                }
+            }
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('.datef').datepicker({
+            dateFormat: 'dd-M-yy',
+            showStatus: true,
+            showWeeks: true,
+            changeMonth: true,
+            changeYear: true,
+            showButtonPanel: true,
+            highlightWeek: true,
+            autoclose: true,
+        });
+    });
+</script>
+
+ 
+
+ 
+

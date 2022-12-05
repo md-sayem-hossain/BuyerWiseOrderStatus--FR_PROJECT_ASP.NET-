@@ -1,0 +1,224 @@
+﻿using BuyerWiseOrderStatus.Data_Model;
+using BuyerWiseOrderStatus.Models;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace BuyerWiseOrderStatus.Controllers
+{
+    public class HomeController : Controller
+    {
+        public ActionResult GetDeliveryData()
+        {
+            //set initial date on page
+            ViewBag.toDate = DateTime.Now.Date.ToString("dd-MMM-yyyy");
+            ViewBag.fromDate = DateTime.Now.Date.ToString("dd-MMM-yyyy");
+            ViewBag.active = "active";
+            ViewBag.active2 = "";
+            return View();
+        }
+        
+        [HttpPost]
+        public ActionResult GetDeliveryData(DateTime fromDate, DateTime toDate)
+        {
+            List<DeliveryDataValues> deliveryDataValues = new List<DeliveryDataValues>();
+            try
+            {
+                string[] productionType = new string[] { "Denim", "Knit" };
+                ViewBag.dateInfo = "Date " + fromDate.Date.ToString("dd-MMM-yyyy") + " To " + toDate.Date.ToString("dd-MMM-yyyy");
+
+                //set initial date on page
+                ViewBag.toDate = toDate.Date.ToString("dd-MMM-yyyy"); 
+                ViewBag.fromDate = fromDate.Date.ToString("dd-MMM-yyyy");
+                ViewBag.active = "active";
+                ViewBag.active2 = "";
+
+                using (FR_PJLEntities dbcon = new FR_PJLEntities())
+                { 
+                    var DeliveryLst3 = (from od in dbcon.ORDER_DELIVERIES
+                                        join ord in dbcon.ORDERS on od.ORDER_ID equals ord.ORDER_ID
+                                        join cu in dbcon.CUSTOMERS on ord.CUSTOMER_ID equals cu.CUSTOMER_ID
+                                        join prdType in dbcon.ORDER_USER_DEFINED_VALUES on ord.ORDER_ID equals prdType.ORDER_ID
+                                        where ord.COMPLETE_DATE < ord.RECEIVED_DATE
+                                              && od.DEL_DATE >= fromDate && od.DEL_DATE <= toDate
+                                              && productionType.Contains(prdType.UD_FIELD_VALUE)
+                                        select od.ORDER_ID).ToList();
+
+                    var DeliveryLst2 = (from od in dbcon.ORDER_DELIVERIES
+                                        join ord in dbcon.ORDERS on od.ORDER_ID equals ord.ORDER_ID
+                                        join cu in dbcon.CUSTOMERS on ord.CUSTOMER_ID equals cu.CUSTOMER_ID
+                                        where ord.COMPLETE_DATE < ord.RECEIVED_DATE
+                                              && od.DEL_DATE >= fromDate && od.DEL_DATE <= toDate
+                                              && !DeliveryLst3.Contains(od.ORDER_ID)
+                                        select new
+                                        {
+                                            UD_FIELD_VALUE = "Others",
+                                            cu.CUSTOMER_NAME,
+                                            ORD_QTY = (od.DEL_QTY == null ? 0 : od.DEL_QTY),
+                                            ord.ORDER_NAME,
+                                            od.DEL_DATE,
+                                            Status = (ord.STATUS == "F" ? "Confirmed" : (ord.STATUS == "P" ? "Provisional" : "Transit"))
+                                        }).ToList();
+                      
+                    var DeliveryLst = (from od in dbcon.ORDER_DELIVERIES
+                                       join ord in dbcon.ORDERS on od.ORDER_ID equals ord.ORDER_ID
+                                       join cu in dbcon.CUSTOMERS on ord.CUSTOMER_ID equals cu.CUSTOMER_ID
+                                       join prdType in dbcon.ORDER_USER_DEFINED_VALUES on ord.ORDER_ID equals prdType.ORDER_ID
+                                       where ord.COMPLETE_DATE < ord.RECEIVED_DATE
+                                             && od.DEL_DATE >= fromDate && od.DEL_DATE <= toDate
+                                             && productionType.Contains(prdType.UD_FIELD_VALUE)
+                                       select new
+                                       {
+                                           prdType.UD_FIELD_VALUE,
+                                           cu.CUSTOMER_NAME,
+                                           ORD_QTY = (od.DEL_QTY == null ? 0 : od.DEL_QTY),
+                                           ord.ORDER_NAME,
+                                           od.DEL_DATE,
+                                           Status = (ord.STATUS == "F" ? "Confirmed" : (ord.STATUS == "P" ? "Provisional" : "Transit"))
+                                       }).ToList();
+                    foreach (var dl in DeliveryLst)
+                    {
+                        DeliveryDataValues dt = new DeliveryDataValues();
+                        dt.UD_FIELD_VALUE = dl.UD_FIELD_VALUE;
+                        dt.CUSTOMER_NAME = dl.CUSTOMER_NAME;
+                        dt.ORD_QTY = dl.ORD_QTY;
+                        string[] orders = dl.ORDER_NAME.Split(new[] { "::" }, StringSplitOptions.None);
+                        dt.BPO = orders[1];
+                        dt.PF_NO = orders[0];
+                        dt.DEL_DATE = dl.DEL_DATE.ToString("dd-MM-yyyy");
+                        dt.Status = dl.Status;
+                        deliveryDataValues.Add(dt);
+                    }
+                    foreach (var dl in DeliveryLst2)
+                    {
+                        DeliveryDataValues dt = new DeliveryDataValues();
+                        dt.UD_FIELD_VALUE = dl.UD_FIELD_VALUE;
+                        dt.CUSTOMER_NAME = dl.CUSTOMER_NAME;
+                        dt.ORD_QTY = dl.ORD_QTY;
+                        string[] orders = dl.ORDER_NAME.Split(new[] { "::" }, StringSplitOptions.None);
+                        dt.BPO = orders[1];
+                        dt.PF_NO = orders[0];
+                        dt.DEL_DATE = dl.DEL_DATE.ToString("dd-MM-yyyy");
+                        dt.Status = dl.Status;
+                        deliveryDataValues.Add(dt);
+                    }
+                }
+            }
+            catch (Exception exp)
+            {
+            }
+            return View(deliveryDataValues);
+        }
+
+        public ActionResult getDeliverySummary()
+        {
+            //set initial date on page
+            ViewBag.toDate = DateTime.Now.Date.ToString("dd-MMM-yyyy");
+            ViewBag.fromDate = DateTime.Now.Date.ToString("dd-MMM-yyyy");
+            ViewBag.active = "";
+            ViewBag.active2 = "active";
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult getDeliverySummary(DateTime fromDate, DateTime toDate )
+        {
+            //set initial date on page
+            ViewBag.toDate = toDate.Date.ToString("dd-MMM-yyyy");
+            ViewBag.fromDate = fromDate.Date.ToString("dd-MMM-yyyy");
+            ViewBag.active = "";
+            ViewBag.active2 = "active";
+
+            List<DeliveryDataValues> deliveryDataValues = new List<DeliveryDataValues>();
+            List<DeliveryDataValues> result = new List<DeliveryDataValues>();
+            try
+            {
+                string[] productionType = new string[] { "Denim", "Knit" };
+                ViewBag.dateInfo = "Date " + fromDate.Date.ToString("dd-MMM-yyyy") + " To " + toDate.Date.ToString("dd-MMM-yyyy"); 
+
+                using (FR_PJLEntities dbcon = new FR_PJLEntities())
+                {
+                    var DeliveryLst3 = (from od in dbcon.ORDER_DELIVERIES
+                                        join ord in dbcon.ORDERS on od.ORDER_ID equals ord.ORDER_ID
+                                        join cu in dbcon.CUSTOMERS on ord.CUSTOMER_ID equals cu.CUSTOMER_ID
+                                        join prdType in dbcon.ORDER_USER_DEFINED_VALUES on ord.ORDER_ID equals prdType.ORDER_ID
+                                        where ord.COMPLETE_DATE < ord.RECEIVED_DATE
+                                              && od.DEL_DATE >= fromDate && od.DEL_DATE <= toDate
+                                              && productionType.Contains(prdType.UD_FIELD_VALUE)
+                                        select od.ORDER_ID).ToList();
+
+                    var DeliveryLst2 = (from od in dbcon.ORDER_DELIVERIES
+                                        join ord in dbcon.ORDERS on od.ORDER_ID equals ord.ORDER_ID
+                                        join cu in dbcon.CUSTOMERS on ord.CUSTOMER_ID equals cu.CUSTOMER_ID
+                                        where ord.COMPLETE_DATE < ord.RECEIVED_DATE
+                                              && od.DEL_DATE >= fromDate && od.DEL_DATE <= toDate
+                                              && !DeliveryLst3.Contains(od.ORDER_ID)
+                                        select new
+                                        {
+                                            UD_FIELD_VALUE = "Others",
+                                            cu.CUSTOMER_NAME,
+                                            ORD_QTY = (od.DEL_QTY == null ? 0 : od.DEL_QTY),
+                                            Status = (ord.STATUS == "F" ? "Confirmed" : (ord.STATUS == "P" ? "Provisional" : "Transit"))
+                                        }).ToList();
+
+                    var DeliveryLst = (from od in dbcon.ORDER_DELIVERIES
+                                       join ord in dbcon.ORDERS on od.ORDER_ID equals ord.ORDER_ID
+                                       join cu in dbcon.CUSTOMERS on ord.CUSTOMER_ID equals cu.CUSTOMER_ID
+                                       join prdType in dbcon.ORDER_USER_DEFINED_VALUES on ord.ORDER_ID equals prdType.ORDER_ID
+                                       where ord.COMPLETE_DATE < ord.RECEIVED_DATE
+                                             && od.DEL_DATE >= fromDate && od.DEL_DATE <= toDate
+                                             && productionType.Contains(prdType.UD_FIELD_VALUE)
+                                       select new
+                                       {
+                                           prdType.UD_FIELD_VALUE,
+                                           cu.CUSTOMER_NAME,
+                                           ORD_QTY = (od.DEL_QTY == null ? 0 : od.DEL_QTY),  
+                                           Status = (ord.STATUS == "F" ? "Confirmed" : (ord.STATUS == "P" ? "Provisional" : "Transit"))
+                                       }).ToList();
+                     
+                    foreach (var dl in DeliveryLst)
+                    {
+                        DeliveryDataValues dt = new DeliveryDataValues();
+                        dt.UD_FIELD_VALUE = dl.UD_FIELD_VALUE;
+                        dt.CUSTOMER_NAME = dl.CUSTOMER_NAME.Split(new[] { "::" }, StringSplitOptions.None)[0];
+                        dt.ORD_QTY = dl.ORD_QTY;
+                        dt.Status = dl.Status; 
+                        deliveryDataValues.Add(dt);
+                    }
+                    foreach (var dl in DeliveryLst2)
+                    {
+                        DeliveryDataValues dt = new DeliveryDataValues();
+                        dt.UD_FIELD_VALUE = dl.UD_FIELD_VALUE;
+                        dt.CUSTOMER_NAME = dl.CUSTOMER_NAME.Split(new[] { "::" }, StringSplitOptions.None)[0];
+                        dt.ORD_QTY = dl.ORD_QTY;
+                        dt.Status = dl.Status;
+                        deliveryDataValues.Add(dt);
+                    }  
+                    result = (from line in deliveryDataValues
+                              group line by new
+                              {
+                                  line.CUSTOMER_NAME,
+                                  line.Status
+                              } into g 
+                              select new DeliveryDataValues
+                              {
+                                  CUSTOMER_NAME = g.First().CUSTOMER_NAME,
+                                  UD_FIELD_VALUE = g.First().UD_FIELD_VALUE,
+                                  Status = g.First().Status,
+                                  ORD_QTY = g.Sum(pc => pc.ORD_QTY),
+                              }).OrderBy(c=> c.CUSTOMER_NAME).ThenBy(c=>c.Status).ToList();
+
+                    //double GrandTotal = result.Sum(item => Convert.ToDouble(item.ORD_QTY));
+                    //ViewBag.GrandTotal = GrandTotal.ToString("N", new CultureInfo("hi-IN"));
+                }
+            }
+            catch (Exception exp)
+            {
+            }
+            return View(result);
+        }
+    }
+}

@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FRPJLModelStoreContainer" CdmEntityContainer="FR_PJLEntities">
+    <EntitySetMapping Name="CUSTOMERS">
+      <EntityTypeMapping TypeName="FRPJLModel.CUSTOMERS">
+        <MappingFragment StoreEntitySet="_CUSTOMERS">
+          <ScalarProperty Name="CUSTOMER_ID" ColumnName="CUSTOMER_ID" />
+          <ScalarProperty Name="CUSTOMER_NAME" ColumnName="CUSTOMER_NAME" />
+          <ScalarProperty Name="CUSTOMER_DESC" ColumnName="CUSTOMER_DESC" />
+          <ScalarProperty Name="LOCATION_ID" ColumnName="LOCATION_ID" />
+          <ScalarProperty Name="STRIP_COLOUR" ColumnName="STRIP_COLOUR" />
+          <ScalarProperty Name="LATE_ALLOWED" ColumnName="LATE_ALLOWED" />
+          <ScalarProperty Name="PRIORITY" ColumnName="PRIORITY" />
+          <ScalarProperty Name="PLAN_GROUP_ID" ColumnName="PLAN_GROUP_ID" />
+          <ScalarProperty Name="DIST_CENTRE_DAYS" ColumnName="DIST_CENTRE_DAYS" />
+          <ScalarProperty Name="CHANGE_ID" ColumnName="CHANGE_ID" />
+          <ScalarProperty Name="CUSTOMER_GROUP" ColumnName="CUSTOMER_GROUP" />
+          <ScalarProperty Name="UPLIFT_PERCENT" ColumnName="UPLIFT_PERCENT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ORDER_DELIVERIES">
+      <EntityTypeMapping TypeName="FRPJLModel.ORDER_DELIVERIES">
+        <MappingFragment StoreEntitySet="_ORDER_DELIVERIES">
+          <ScalarProperty Name="ORDER_ID" ColumnName="ORDER_ID" />
+          <ScalarProperty Name="DEL_DATE" ColumnName="DEL_DATE" />
+          <ScalarProperty Name="DEL_ID" ColumnName="DEL_ID" />
+          <ScalarProperty Name="ORIG_DEL_DATE" ColumnName="ORIG_DEL_DATE" />
+          <ScalarProperty Name="DEL_QTY" ColumnName="DEL_QTY" />
+          <ScalarProperty Name="DEL_REF" ColumnName="DEL_REF" />
+          <ScalarProperty Name="EXTERNAL_ID" ColumnName="EXTERNAL_ID" />
+          <ScalarProperty Name="START_DATE" ColumnName="START_DATE" />
+          <ScalarProperty Name="END_DATE" ColumnName="END_DATE" />
+          <ScalarProperty Name="TRANS_METHOD_ID" ColumnName="TRANS_METHOD_ID" />
+          <ScalarProperty Name="EXTN_DEL_DATE" ColumnName="EXTN_DEL_DATE" />
+          <ScalarProperty Name="EXTN_DEL_NOTE" ColumnName="EXTN_DEL_NOTE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ORDER_USER_DEFINED_VALUES">
+      <EntityTypeMapping TypeName="FRPJLModel.ORDER_USER_DEFINED_VALUES">
+        <MappingFragment StoreEntitySet="_ORDER_USER_DEFINED_VALUES">
+          <ScalarProperty Name="ORDER_ID" ColumnName="ORDER_ID" />
+          <ScalarProperty Name="UD_FIELD_ID" ColumnName="UD_FIELD_ID" />
+          <ScalarProperty Name="UD_FIELD_VALUE" ColumnName="UD_FIELD_VALUE" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ORDERS">
+      <EntityTypeMapping TypeName="FRPJLModel.ORDERS">
+        <MappingFragment StoreEntitySet="_ORDERS">
+          <ScalarProperty Name="ORDER_ID" ColumnName="ORDER_ID" />
+          <ScalarProperty Name="ORDER_NAME" ColumnName="ORDER_NAME" />
+          <ScalarProperty Name="ORIGINAL_NAME" ColumnName="ORIGINAL_NAME" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="ORDER_SET" ColumnName="ORDER_SET" />
+          <ScalarProperty Name="CREATED_DATE" ColumnName="CREATED_DATE" />
+          <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
+          <ScalarProperty Name="CUSTOMER_ID" ColumnName="CUSTOMER_ID" />
+          <ScalarProperty Name="TIMETABLE_ID" ColumnName="TIMETABLE_ID" />
+          <ScalarProperty Name="STATUS" ColumnName="STATUS" />
+          <ScalarProperty Name="RGB_COLOUR" ColumnName="RGB_COLOUR" />
+          <ScalarProperty Name="EFFICIENCY" ColumnName="EFFICIENCY" />
+          <ScalarProperty Name="WIDTH" ColumnName="WIDTH" />
+          <ScalarProperty Name="QTY_DELIVERED" ColumnName="QTY_DELIVERED" />
+          <ScalarProperty Name="FLAGS_4" ColumnName="FLAGS_4" />
+          <ScalarProperty Name="MFG_TIME" ColumnName="MFG_TIME" />
+          <ScalarProperty Name="WH_TIME" ColumnName="WH_TIME" />
+          <ScalarProperty Name="SELL_PRICE_X1000" ColumnName="SELL_PRICE_X1000" />
+          <ScalarProperty Name="SELL_COST_X1000" ColumnName="SELL_COST_X1000" />
+          <ScalarProperty Name="TRANS_METHOD_ID" ColumnName="TRANS_METHOD_ID" />
+          <ScalarProperty Name="SOURCE_LOCATION_ID" ColumnName="SOURCE_LOCATION_ID" />
+          <ScalarProperty Name="SALES_YEAR" ColumnName="SALES_YEAR" />
+          <ScalarProperty Name="SALES_SEASON" ColumnName="SALES_SEASON" />
+          <ScalarProperty Name="PROVIDER_LOCATION_ID" ColumnName="PROVIDER_LOCATION_ID" />
+          <ScalarProperty Name="LAST_UPDATED" ColumnName="LAST_UPDATED" />
+          <ScalarProperty Name="PRIORITY" ColumnName="PRIORITY" />
+          <ScalarProperty Name="ROUTE_ID" ColumnName="ROUTE_ID" />
+          <ScalarProperty Name="PRIOR_ORDER_ID" ColumnName="PRIOR_ORDER_ID" />
+          <ScalarProperty Name="NEXT_ORDER_ID" ColumnName="NEXT_ORDER_ID" />
+          <ScalarProperty Name="EVENT_BASE_DATE" ColumnName="EVENT_BASE_DATE" />
+          <ScalarProperty Name="AUTO_PLAN_GROUP" ColumnName="AUTO_PLAN_GROUP" />
+          <ScalarProperty Name="AUTO_PLAN_BASE_DATE" ColumnName="AUTO_PLAN_BASE_DATE" />
+          <ScalarProperty Name="OVERRIDE_PROPERTY" ColumnName="OVERRIDE_PROPERTY" />
+          <ScalarProperty Name="LAST_IN_CUST" ColumnName="LAST_IN_CUST" />
+          <ScalarProperty Name="DIST_FROM_GROUP" ColumnName="DIST_FROM_GROUP" />
+          <ScalarProperty Name="DELIVERY_LOCATION" ColumnName="DELIVERY_LOCATION" />
+          <ScalarProperty Name="BATCH_FACTOR" ColumnName="BATCH_FACTOR" />
+          <ScalarProperty Name="FLOW_ID" ColumnName="FLOW_ID" />
+          <ScalarProperty Name="SCHEDULE_OFFSET" ColumnName="SCHEDULE_OFFSET" />
+          <ScalarProperty Name="CHANGE_ID" ColumnName="CHANGE_ID" />
+          <ScalarProperty Name="CHANGE_DATE" ColumnName="CHANGE_DATE" />
+          <ScalarProperty Name="TRANSPORT_OVERRIDE" ColumnName="TRANSPORT_OVERRIDE" />
+          <ScalarProperty Name="STOCK_OUT_DATE" ColumnName="STOCK_OUT_DATE" />
+          <ScalarProperty Name="HOST_GROUP_ID" ColumnName="HOST_GROUP_ID" />
+          <ScalarProperty Name="INHERIT_FROM" ColumnName="INHERIT_FROM" />
+          <ScalarProperty Name="RECEIVED_DATE" ColumnName="RECEIVED_DATE" />
+          <ScalarProperty Name="PROCESS_WITH" ColumnName="PROCESS_WITH" />
+          <ScalarProperty Name="CONTRACT_QTY" ColumnName="CONTRACT_QTY" />
+          <ScalarProperty Name="USER_STATUS" ColumnName="USER_STATUS" />
+          <ScalarProperty Name="PO_ID" ColumnName="PO_ID" />
+          <ScalarProperty Name="PO_LINE_ID" ColumnName="PO_LINE_ID" />
+          <ScalarProperty Name="COLLAB_REMOTE_ID" ColumnName="COLLAB_REMOTE_ID" />
+          <ScalarProperty Name="HOST_ORDER_ID" ColumnName="HOST_ORDER_ID" />
+          <ScalarProperty Name="ORDER_GROUPING_ID" ColumnName="ORDER_GROUPING_ID" />
+          <ScalarProperty Name="VENDOR_DATE" ColumnName="VENDOR_DATE" />
+          <ScalarProperty Name="APEX_ORDER_ITEM_ID" ColumnName="APEX_ORDER_ITEM_ID" />
+          <ScalarProperty Name="ARCHIVED_DATE" ColumnName="ARCHIVED_DATE" />
+          <ScalarProperty Name="RESERVATION_ID" ColumnName="RESERVATION_ID" />
+          <ScalarProperty Name="COLLAB_CHANGE_ID" ColumnName="COLLAB_CHANGE_ID" />
+          <ScalarProperty Name="LAST_COLLAB_SITE" ColumnName="LAST_COLLAB_SITE" />
+          <ScalarProperty Name="COLLAB_COMP_CHANGE" ColumnName="COLLAB_COMP_CHANGE" />
+          <ScalarProperty Name="COMPLETE_DATE" ColumnName="COMPLETE_DATE" />
+          <ScalarProperty Name="OVERRIDE_CUSTOMER_PROF" ColumnName="OVERRIDE_CUSTOMER_PROF" />
+          <ScalarProperty Name="MAKE_COST_X1000" ColumnName="MAKE_COST_X1000" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
